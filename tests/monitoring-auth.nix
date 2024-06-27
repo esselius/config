@@ -92,33 +92,44 @@
   testScript = ''
     start_all()
 
-    machine.wait_for_unit("postgresql.service")
-    machine.wait_for_unit("redis-authentik.service")
-    machine.wait_for_unit("authentik-migrate.service")
-    machine.wait_for_unit("authentik-worker.service")
-    machine.wait_for_unit("authentik.service")
-    machine.wait_for_open_port(9000)
-    machine.wait_until_succeeds("curl -fL http://localhost:9000/if/flow/initial-setup/ >&2")
+    with subtest("Wait for authentik services to start"):
+      machine.wait_for_unit("postgresql.service")
+      machine.wait_for_unit("redis-authentik.service")
+      machine.wait_for_unit("authentik-migrate.service")
+      machine.wait_for_unit("authentik-worker.service")
+      machine.wait_for_unit("authentik.service")
+
+    with subtest("Wait for Authentik itself to initialize"):
+      machine.wait_for_open_port(9000)
+      machine.wait_until_succeeds("curl -fL http://localhost:9000/if/flow/initial-setup/ >&2")
+
+    with subtest("Wait for Authentik blueprints to be applied"):
+      machine.wait_until_succeeds("curl -f http://localhost:9000/application/o/grafana/.well-known/openid-configuration >&2")
 
     machine.forward_port(3000, 3000)
     machine.forward_port(9000, 9000)
 
-    machine.wait_until_succeeds("curl -f http://localhost:9000/application/o/grafana/.well-known/openid-configuration >&2")
-
     from playwright.sync_api import sync_playwright, expect
 
     with sync_playwright() as p:
-        browser = p.webkit.launch()
-        page = browser.new_page()
+      browser = p.chromium.launch()
+      page = browser.new_page()
+
+      with subtest("Login page"):
         page.goto("http://localhost:3000/login")
+        page.reload()
         page.get_by_role("link", name="Sign in with Authentik").click()
-        page.get_by_placeholder("Email eller Username").fill("akadmin")
+      with subtest("Enter username"):
+        page.get_by_placeholder("Email or Username").fill("akadmin")
         page.get_by_role("button", name="Log in").click()
+      with subtest("Enter password"):
         page.get_by_placeholder("Please enter your password").fill("password")
         page.get_by_role("button", name="Continue").click()
+      with subtest("Consent page"):
         page.get_by_role("button", name="Continue").click()
-        page.wait_for_timeout(10000)
+      with subtest("Grafana landing page"):
         expect(page.get_by_role("heading", name="Starred dashboards")).to_be_visible()
-        browser.close()
+
+      browser.close()
   '';
 }
