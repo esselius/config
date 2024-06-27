@@ -1,6 +1,4 @@
-{ myModules, inputs }:
-
-{ config, ... }:
+{ myModules, inputs, config, ... }:
 
 {
   name = "grafana-auth";

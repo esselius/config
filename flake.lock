@@ -11,11 +11,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1718106692,
-        "narHash": "sha256-IGMrKVU2fXgn30LQduJIg89HefHLlPMgJ3mnnKpnNfU=",
+        "lastModified": 1719402686,
+        "narHash": "sha256-MkHcXybi0aEydeLvLKNtJBa3oOy8oCq1uarrLgQzUCM=",
         "owner": "nix-community",
         "repo": "authentik-nix",
-        "rev": "11f5e0fd17dd44d9946a23271d201b257df9f0f4",
+        "rev": "1646cf92cefa0eb6e74f33afe61ae4b2d0d20afe",
         "type": "github"
       },
       "original": {
@@ -37,7 +37,7 @@
       },
       "original": {
         "owner": "goauthentik",
-        "ref": "version/2024.4.2",
+        "ref": "version/2024.4.3",
         "repo": "authentik",
         "type": "github"
       }
@@ -273,11 +273,11 @@
         "flake-parts": "flake-parts_4"
       },
       "locked": {
-        "lastModified": 1718790855,
-        "narHash": "sha256-ocqKoHCqZI7eu/8XANij4oJ09Y3ot6g7ofx8r3MAgbg=",
+        "lastModified": 1719518333,
+        "narHash": "sha256-kG6U6J8wMi5iC0v7l3Kx5ibXTDU9xt3RZFAPVpkMMt0=",
         "owner": "esselius",
         "repo": "nixos-tests",
-        "rev": "c7b1eaf9f9a7b624950c72f51190e1aac2d6779e",
+        "rev": "48f5f400620166f604336d47d40228d9eba8e050",
         "type": "github"
       },
       "original": {
@@ -378,11 +378,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1719222533,
-        "narHash": "sha256-Jur3VJKwilx+2/5/sDetSo3QxFoTiFpS95yZ/vaJC1U=",
+        "lastModified": 1719516056,
+        "narHash": "sha256-fk+tniEoJmXVfLQjhKWjAl/Z+cExI00h66PrmQHujI0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "491f451790a1eba469c2346ae479991dfc8adebc",
+        "rev": "c82ad1b10b310442e685bc150199747fdee92095",
         "type": "github"
       },
       "original": {
